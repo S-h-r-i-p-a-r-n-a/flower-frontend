@@ -1,4 +1,4 @@
-'use client'
+''use client'
 import { useState } from "react";
 
 export default function Home() {
@@ -12,6 +12,7 @@ export default function Home() {
   };
 
   const predict = async () => {
+    console.log("Predict button clicked");
     try {
       const res = await fetch("https://flower-backend-tphs.onrender.com/predict", {
         method: "POST",
@@ -22,9 +23,11 @@ export default function Home() {
       });
 
       const data = await res.json();
+      console.log("Response JSON:", data);
       const labels = ["Setosa", "Versicolor", "Virginica"];
       setResult(`🌸 Prediction: ${labels[data.prediction]}`);
     } catch (err) {
+      console.error("Error fetching prediction:", err);
       setResult("❌ Failed to get prediction.");
     }
   };
